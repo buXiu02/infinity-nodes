@@ -430,6 +430,28 @@ workspaceClose.onclick=()=>workspacePanel.hidden=true;workspacePanel.onpointerdo
 downloadWorkspaceBackup.onclick=downloadFullWorkspace;restoreWorkspaceBackup.onclick=()=>workspaceImportInput.click();
 workspaceImportInput.onchange=async()=>{const f=workspaceImportInput.files?.[0];workspaceImportInput.value='';if(f)await restoreFullWorkspace(f)};
 
+
+// V24 — two-finger pinch zoom.
+const v24TouchCanvas=document.querySelector('#canvas');
+if(v24TouchCanvas){
+ let v24Pinch=null;
+ const v24Dist=(a,b)=>Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);
+ const v24Mid=(a,b)=>({x:(a.clientX+b.clientX)/2,y:(a.clientY+b.clientY)/2});
+ v24TouchCanvas.addEventListener('touchstart',e=>{
+  if(e.touches.length===2){v24Pinch={distance:v24Dist(e.touches[0],e.touches[1]),zoom:state.view.zoom};e.preventDefault();}
+ },{passive:false});
+ v24TouchCanvas.addEventListener('touchmove',e=>{
+  if(e.touches.length===2&&v24Pinch){
+   e.preventDefault();const m=v24Mid(e.touches[0],e.touches[1]),r=v24TouchCanvas.getBoundingClientRect(),oldZ=state.view.zoom;
+   const newZ=Math.max(.2,Math.min(3,v24Pinch.zoom*(v24Dist(e.touches[0],e.touches[1])/Math.max(1,v24Pinch.distance))));
+   const sx=m.x-r.left,sy=m.y-r.top,wx=(sx-state.view.x)/oldZ,wy=(sy-state.view.y)/oldZ;
+   state.view.zoom=newZ;state.view.x=sx-wx*newZ;state.view.y=sy-wy*newZ;applyView();
+  }
+ },{passive:false});
+ v24TouchCanvas.addEventListener('touchend',e=>{if(e.touches.length<2&&v24Pinch){v24Pinch=null;save();}},{passive:false});
+ v24TouchCanvas.addEventListener('touchcancel',()=>{v24Pinch=null},{passive:true});
+}
+
 // V20 — Templates. Kept isolated from the core graph system.
 {
   db.templates=db.templates||[];
