@@ -174,3 +174,7 @@ body{font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe
 /* V24 iPad/touch */
 @media (max-width:1180px){.top-actions{position:fixed!important;top:12px!important;right:12px!important;z-index:90!important;display:flex!important;visibility:visible!important;opacity:1!important}#undoBtn,#redoBtn,#themeBtn{display:inline-flex!important;visibility:visible!important;opacity:1!important;flex:0 0 auto!important}}
 @media (pointer:coarse){#undoBtn,#redoBtn,#themeBtn{min-width:42px;min-height:42px}body{overscroll-behavior:none}#canvas{touch-action:none}}
+
+/* V26 — explicit connection deletion */
+.edge-inspector-footer{margin-top:14px}
+#deleteEdgeBtn{border-color:#a75b5b!important}
