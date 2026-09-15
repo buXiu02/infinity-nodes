@@ -178,3 +178,31 @@ body{font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe
 /* V26 — explicit connection deletion */
 .edge-inspector-footer{margin-top:14px}
 #deleteEdgeBtn{border-color:#a75b5b!important}
+
+/* V26.1 — connection delete UI polish only */
+#deleteEdgeBtn.edge-delete-icon{
+  width:36px!important;
+  height:36px!important;
+  min-width:36px!important;
+  padding:0!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border:1px solid var(--line)!important;
+  border-radius:10px!important;
+  background:transparent!important;
+  color:var(--muted)!important;
+  box-shadow:none!important;
+  cursor:pointer;
+}
+#deleteEdgeBtn.edge-delete-icon svg{
+  width:17px;
+  height:17px;
+  fill:currentColor;
+}
+#deleteEdgeBtn.edge-delete-icon:hover{
+  color:#d66b6b!important;
+  border-color:rgba(214,107,107,.45)!important;
+  background:rgba(214,107,107,.08)!important;
+}
+#deleteEdgeBtn.edge-delete-icon:active{transform:translateY(1px)}
